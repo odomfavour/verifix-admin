@@ -48,7 +48,7 @@ const UserInterestListTable = ({ data }) => {
           </tr>
         </thead>
         <tbody>
-          {currentItems.length > 0 &&
+          {currentItems?.length > 0 &&
             currentItems.map((item, index) => {
               const { status, userEmail, userFirstName, userLastName, date } =
                 item;

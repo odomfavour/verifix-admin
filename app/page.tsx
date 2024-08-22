@@ -17,7 +17,7 @@ export default function Home() {
 
   return (
     <>
-      <main className="flex justify-center items-center h-screen bg-slate-500">
+      <main className="flex justify-center items-center h-screen bg-login-pattern bg-cover">
         <div className="w-1/3">
           <div className="flex justify-center items-center mb-5">
             <Image

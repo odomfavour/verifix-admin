@@ -237,17 +237,17 @@ const Page: React.FC = () => {
       <div className="flex gap-6 mt-6">
         <div className="w-2/3">
           <div className="bg-white p-7">
-            <BarChart data={productMetrics} title="Product Report" />
+            <BarChart data={productMetrics || []} title="Product Report" />
           </div>
           <div className="mb-6 bg-white p-7 ">
-            <BarChartComponent data={queriesMetrics} title="Queries" />
+            <BarChartComponent data={queriesMetrics || []} title="Queries" />
           </div>
         </div>
         <div className="w-1/3">
           <div className="bg-white p-7 h-full">
             <PieChart
               title="Vendors"
-              data={vendorsMetrics}
+              data={vendorsMetrics || []}
               colors={pieColors}
             />
           </div>

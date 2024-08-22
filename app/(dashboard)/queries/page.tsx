@@ -1,8 +1,10 @@
 'use client';
 import VendorListTable from '@/components/dashboard/VendorListTable';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import QueryListTable from '@/components/dashboard/QueryListTable';
+import { toggleLoading } from '@/provider/redux/modalSlice';
 
 interface Vendor {
   id: number;
@@ -16,40 +18,35 @@ interface Vendor {
 
 const VendorsPage = () => {
   const user = useSelector((state: any) => state.user.user);
-  const [vendors, setVendors] = useState<Vendor[]>([]);
+  const [queries, setQueries] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const dispatch = useDispatch();
+
+  const fetchQueries = useCallback(async () => {
+    dispatch(toggleLoading(true));
+    try {
+      const response = await axios.get(
+        `${process.env.BASEURL}/admin/query/list`,
+        {
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
+        }
+      );
+      console.log('res', response);
+      setQueries(response.data.query); // Adjust this based on your actual API response structure
+    } catch (error: any) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+      dispatch(toggleLoading(false));
+    }
+  }, [dispatch, user?.token]); //
 
   useEffect(() => {
-    const fetchVendors = async () => {
-      try {
-        const response = await axios.get(
-          `${process.env.BASEURL}/admin/vendor/list?limit=1&offset=3`,
-          {
-            headers: {
-              Authorization: `Bearer ${user?.token}`,
-            },
-          }
-        );
-        console.log('res', response);
-        setVendors(response.data.business); // Adjust this based on your actual API response structure
-      } catch (error: any) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchVendors();
-  }, [user?.token]);
-
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  if (error) {
-    return <p>Error: {error}</p>;
-  }
+    fetchQueries();
+  }, [fetchQueries]);
 
   return (
     <section>
@@ -67,7 +64,7 @@ const VendorsPage = () => {
           </div>
         </div>
       </div>
-      <VendorListTable data={vendors} />
+      <QueryListTable data={queries} fetchData={fetchQueries} />
     </section>
   );
 };

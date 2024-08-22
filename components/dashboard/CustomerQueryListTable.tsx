@@ -10,6 +10,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleLoading } from '@/provider/redux/modalSlice';
+import AdminCloseQueryForm from './AdminCloseQueryForm';
 interface Query {
   id: number;
   query_id: number;
@@ -90,34 +91,6 @@ const CustomerQueryListTable: React.FC<InitiatedListTableProps> = ({
   const openResolveModal = (id: number) => {
     setQueryToClose(id);
     setOpenModal(true);
-  };
-
-  const closeQuery = async () => {
-    dispatch(toggleLoading(true));
-    try {
-      const response = await axios.put(
-        `${process.env.BASEURL}/admin/query/close`,
-        { queryId: queryToClose, reason },
-        {
-          headers: {
-            Authorization: `Bearer ${user?.token}`,
-          },
-        }
-      );
-      console.log('resp', response.data);
-      toast.success('Query closed successfully');
-      fetchData();
-      handleClose();
-    } catch (error: any) {
-      const errorMessage =
-        error?.response?.data?.message ||
-        error?.response?.data?.errors ||
-        error?.message ||
-        'Unknown error';
-      toast.error(`${errorMessage}`);
-    } finally {
-      dispatch(toggleLoading(false));
-    }
   };
 
   return (
@@ -301,40 +274,11 @@ const CustomerQueryListTable: React.FC<InitiatedListTableProps> = ({
       )} */}
 
       <Modal title="" isOpen={openModal} onClose={handleClose} maxWidth="30%">
-        <div className="p-3">
-          <p className="text-center font-semibold text-lg">Resolve query</p>
-          <p className="text-base text-center mb-5">Are you sure?</p>
-
-          <label htmlFor="reason" className="block mb-2 text-xs">
-            Reason
-          </label>
-          <textarea
-            name="reason"
-            id="reason"
-            placeholder="reason"
-            rows={3}
-            onChange={(e) => setReason(e.target.value)}
-            className="border border-gray-400 rounded-md w-full p-2"
-          ></textarea>
-          <div className="flex justify-center items-centr">
-            <div className="flex gap-3 my-5">
-              <button className="border border-red-400 px-4 py-2 text-red-600 rounded-md">
-                Cancel
-              </button>
-              <button
-                className={`rounded-md px-4 py-2 ${
-                  reason
-                    ? 'bg-veriGreen text-white'
-                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                }`}
-                onClick={closeQuery}
-                disabled={!reason}
-              >
-                Close Query
-              </button>
-            </div>
-          </div>
-        </div>
+        <AdminCloseQueryForm
+          queryId={queryToClose}
+          fetchData={fetchData}
+          handleClose={handleClose}
+        />
       </Modal>
     </div>
   );

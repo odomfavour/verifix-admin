@@ -15,8 +15,8 @@ const PieChart: React.FC<PieChartProps> = ({ data, colors, title }) => {
   const [endDate, setEndDate] = useState('');
 
   // Transform the data into series and labels
-  const series = data?.statusMetrics.map((metric) => Number(metric.count));
-  const labels = data?.statusMetrics.map((metric) => metric.status);
+  const series = data?.statusMetrics?.map((metric) => Number(metric.count));
+  const labels = data?.statusMetrics?.map((metric) => metric.status);
 
   const options = {
     labels: labels,
@@ -61,7 +61,7 @@ const PieChart: React.FC<PieChartProps> = ({ data, colors, title }) => {
           />
         </div>
       </div>
-      <Chart options={options} series={series} type="pie" height={500} />
+      <Chart options={options} series={series || []} type="pie" height={500} />
       <div className="mt-5">
         {labels?.map((label, index) => (
           <div key={index} className="flex justify-between">

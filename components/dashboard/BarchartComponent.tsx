@@ -128,15 +128,15 @@ const BarChartComponent: React.FC<BarChartProps> = ({ data, title }) => {
   const series = [
     {
       name: 'Resolved',
-      data: filteredMonthlyData.map((item) => item.RESOLVED || 0),
+      data: filteredMonthlyData?.map((item) => item.RESOLVED || 0),
     },
     {
       name: 'In Progress',
-      data: filteredMonthlyData.map((item) => item.IN_PROGRESS || 0),
+      data: filteredMonthlyData?.map((item) => item.IN_PROGRESS || 0),
     },
     {
       name: 'Pending',
-      data: filteredMonthlyData.map((item) => item.PENDING || 0),
+      data: filteredMonthlyData?.map((item) => item.PENDING || 0),
     },
   ];
 
@@ -164,11 +164,16 @@ const BarChartComponent: React.FC<BarChartProps> = ({ data, title }) => {
       </div>
 
       <div style={{ width: '700px', margin: '0 auto' }}>
-        <Chart options={options} series={series} type="bar" height={350} />
+        <Chart
+          options={options}
+          series={series || []}
+          type="bar"
+          height={350}
+        />
       </div>
 
       <div className="mt-5">
-        {labels.map((label, index) => (
+        {labels?.map((label, index) => (
           <div key={index} className="flex gap-4">
             <div className="flex gap-2 items-center">
               <div

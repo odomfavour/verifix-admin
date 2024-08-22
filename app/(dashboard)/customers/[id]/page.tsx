@@ -34,6 +34,7 @@ const SingleCustomer = () => {
           },
         }
       );
+      console.log('this', response.data.user);
       setCustomer(response.data.user);
     } catch (error: any) {
       console.log('err', error);
@@ -167,7 +168,98 @@ const SingleCustomer = () => {
                             Customer ID
                           </p>
                           <p className="text-sm font-normal text-[#101928]">
-                            CUS_i2khfmvg3bz7q5r
+                            {customer?.id}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    {/* <div className="mb-4">
+                      <div className="flex items-center gap-4 py-3">
+                        <UserIcon />
+                        <div>
+                          <p className="text-xs font-normal text-[#475467]">
+                            Email
+                          </p>
+                          <p className="text-sm font-normal text-[#101928]">
+                            {customer?.phoneNumber}
+                          </p>
+                        </div>
+                      </div>
+                    </div> */}
+                    <div className="mb-4">
+                      <div className="flex items-center gap-4 py-3">
+                        <UserIcon />
+                        <div>
+                          <p className="text-xs font-normal text-[#475467]">
+                            Full Name
+                          </p>
+                          <p className="text-sm font-normal text-[#101928]">
+                            {customer?.firstName} {customer?.lastName}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="mb-4">
+                      <div className="flex items-center gap-4 py-3">
+                        <UserIcon />
+                        <div>
+                          <p className="text-xs font-normal text-[#475467]">
+                            Email
+                          </p>
+                          <p className="text-sm font-normal text-[#101928]">
+                            {customer?.email}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="mb-4">
+                      <div className="flex items-center gap-4 py-3">
+                        <UserIcon />
+                        <div>
+                          <p className="text-xs font-normal text-[#475467]">
+                            Phone Number
+                          </p>
+                          <p className="text-sm font-normal text-[#101928]">
+                            {customer?.phoneNumber}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="mb-4">
+                      <div className="flex items-center gap-4 py-3">
+                        <UserIcon />
+                        <div>
+                          <p className="text-xs font-normal text-[#475467]">
+                            Initiated Interest
+                          </p>
+                          <p className="text-sm font-normal text-[#101928]">
+                            {interests.length}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="mb-4">
+                      <div className="flex items-center gap-4 py-3">
+                        <UserIcon />
+                        <div>
+                          <p className="text-xs font-normal text-[#475467]">
+                            Queries
+                          </p>
+                          <p className="text-sm font-normal text-[#101928]">
+                            {queries.length}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="mb-4">
+                      <div className="flex items-center gap-4 py-3">
+                        <UserIcon />
+                        <div>
+                          <p className="text-xs font-normal text-[#475467]">
+                            Date Joined
+                          </p>
+                          <p className="text-sm font-normal text-[#101928]">
+                            {formatDate(customer?.createdAt)}
                           </p>
                         </div>
                       </div>

@@ -42,7 +42,7 @@ const TransactionsListTable = ({ data }) => {
           </tr>
         </thead>
         <tbody>
-          {currentItems.length > 0 &&
+          {currentItems?.length > 0 &&
             currentItems.map((item, index) => {
               const { id, status } = item;
               return (
@@ -143,7 +143,7 @@ const TransactionsListTable = ({ data }) => {
                 </tr>
               );
             })}
-          {currentItems.length == 0 && (
+          {currentItems?.length == 0 && (
             <tr className="text-center text-primary bg-white">
               <td className="py-2 text-center" colSpan={7}>
                 <div className="flex justify-center items-center  min-h-[60vh]">

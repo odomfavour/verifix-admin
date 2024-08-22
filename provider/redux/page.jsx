@@ -28,7 +28,7 @@ const AddProduct = () => {
   });
 
   useEffect(() => {
-    if (product && Object.keys(product).length > 0) {
+    if (product && Object.keys(product)?.length > 0) {
       setFormValues({
         productName: product?.name || '',
         description: product?.description || '',
@@ -81,7 +81,7 @@ const AddProduct = () => {
   };
 
   const removeImage = async (index, image) => {
-    if (product && Object.keys(product).length > 0) {
+    if (product && Object.keys(product)?.length > 0) {
       setLoading(true);
       try {
         const response = await axios.delete(
