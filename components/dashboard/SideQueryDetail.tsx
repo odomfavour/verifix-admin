@@ -87,20 +87,20 @@ const SideQueryDetail: React.FC<SidebarProps> = ({
               <div className="flex items-center justify-between">
                 <p className="text-veriGreen">Customer Name:</p>
                 <p>
-                  {query.userFirstName} {query.userLastName}
+                  {query.userFirstName || ''} {query.userLastName || ''}
                 </p>
               </div>
               <div className="flex justify-between items-center">
                 <p className="text-veriGreen">Customer Name:</p>
-                <p>{query.businessName}</p>
+                <p>{query.businessName || ''}</p>
               </div>
               <div className="flex justify-between items-center">
                 <p className="text-veriGreen">Transaction Type:</p>
-                <p>{query.query_transactionType}</p>
+                <p>{query.query_transactionType || ''}</p>
               </div>
               <div className="flex justify-between items-center">
                 <p className="text-veriGreen">Status:</p>{' '}
-                <p>{query.query_status}</p>
+                <p>{query.query_status || ''}</p>
               </div>
               <div className="flex justify-between items-center">
                 <p className="text-veriGreen">Created At:</p>{' '}
