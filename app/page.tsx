@@ -18,7 +18,7 @@ export default function Home() {
   return (
     <>
       <main className="flex justify-center items-center h-screen bg-login-pattern bg-cover">
-        <div className="w-1/3">
+        <div className="md:w-1/3 w-11/12">
           <div className="flex justify-center items-center mb-5">
             <Image
               src="/verifix-logo.svg"

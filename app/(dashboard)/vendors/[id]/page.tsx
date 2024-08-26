@@ -251,6 +251,8 @@ const SingleVendor = () => {
       //   ...prevVendor,
       //   status: 'Suspended',
       // }));
+      fetchVendor();
+      handleClose();
     } catch (error: any) {
       const errorMessage =
         error?.response?.data?.message ||
@@ -277,6 +279,7 @@ const SingleVendor = () => {
       );
       toast.success('Vendor unsuspended successfully');
       fetchVendor();
+      handleClose();
       // setVendor((prevVendor: Vendor) => ({
       //   ...prevVendor,
       //   status: 'Suspended',
