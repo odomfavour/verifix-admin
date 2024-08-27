@@ -9,6 +9,7 @@ import { FaDownload, FaFileDownload } from 'react-icons/fa';
 import { IoFilter, IoGridOutline } from 'react-icons/io5';
 import { MdOutlineFormatListBulleted } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 interface Customer {
   id: number;
@@ -54,6 +55,46 @@ const ProductsPage: React.FC = () => {
     fetchCustomers();
   }, [user, dispatch]);
 
+  const exportCustomers = async () => {
+    dispatch(toggleLoading(true));
+    try {
+      const response = await axios.get(
+        `${process.env.BASEURL}/admin/user/export`,
+        {
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
+          responseType: 'text', // Important to handle the response as text
+        }
+      );
+
+      if (response.status === 200) {
+        const csvData = response.data;
+        const link = document.createElement('a');
+        link.href =
+          'data:text/csv;charset=utf-8,' + encodeURIComponent(csvData);
+        link.setAttribute('download', 'products.csv');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        toast.success('Customer exported');
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const errorMessage =
+          error.response?.data?.message ||
+          error.response?.data?.errors ||
+          error.message ||
+          'Unknown error';
+        toast.error(errorMessage);
+      } else {
+        console.error('Error exporting customers:', error);
+      }
+    } finally {
+      dispatch(toggleLoading(false));
+    }
+  };
+
   return (
     <section>
       <div className="flex justify-between items-center mb-14">
@@ -62,7 +103,10 @@ const ProductsPage: React.FC = () => {
           <p>Showing data of all customers registered </p>
         </div>
         <div className="flex gap-3">
-          <button className="bg-white border-gray-200 rounded-md  py-[8px] px-[12px] font-semibold text-sm text-[#344054] flex gap-2">
+          <button
+            className="bg-white border-gray-200 rounded-md  py-[8px] px-[12px] font-semibold text-sm text-[#344054] flex gap-2"
+            onClick={exportCustomers}
+          >
             <span>
               <FaDownload />
             </span>

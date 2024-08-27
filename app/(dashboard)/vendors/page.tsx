@@ -50,6 +50,46 @@ const VendorsPage = () => {
     fetchVendors();
   }, [dispatch, user]);
 
+  const exportVendors = async () => {
+    dispatch(toggleLoading(true));
+    try {
+      const response = await axios.get(
+        `${process.env.BASEURL}/admin/vendor/export`,
+        {
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
+          responseType: 'text', // Important to handle the response as text
+        }
+      );
+
+      if (response.status === 200) {
+        const csvData = response.data;
+        const link = document.createElement('a');
+        link.href =
+          'data:text/csv;charset=utf-8,' + encodeURIComponent(csvData);
+        link.setAttribute('download', 'products.csv');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        toast.success('Vendor exported');
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const errorMessage =
+          error.response?.data?.message ||
+          error.response?.data?.errors ||
+          error.message ||
+          'Unknown error';
+        toast.error(errorMessage);
+      } else {
+        console.error('Error exporting customers:', error);
+      }
+    } finally {
+      dispatch(toggleLoading(false));
+    }
+  };
+
   return (
     <section>
       <div className="flex justify-between items-center p-4">
@@ -59,7 +99,10 @@ const VendorsPage = () => {
         </div>
         <div>
           <div className="flex items-center gap-3">
-            <button className="py-2 px-3 border border-[#D0D5DD] rounded-md flex gap-2 items-center">
+            <button
+              className="py-2 px-3 border border-[#D0D5DD] rounded-md flex gap-2 items-center"
+              onClick={exportVendors}
+            >
               {/* <IoFilter /> */}
               Export CSV
             </button>
