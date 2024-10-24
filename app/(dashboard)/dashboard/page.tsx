@@ -102,7 +102,6 @@ const Page: React.FC = () => {
           )
         );
       }
-      // setCustomer(response.data.user);
     } catch (error: any) {
       console.log("err", error);
       const errorMessage =
