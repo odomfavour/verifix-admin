@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { EmptyProductIcon, formatDate } from '@/utils/utils';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useState } from 'react';
-import { IoFilter } from 'react-icons/io5';
-import { TbDotsCircleHorizontal } from 'react-icons/tb';
+import { EmptyProductIcon, formatDate } from "@/utils/utils";
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
+import { IoFilter } from "react-icons/io5";
+import { TbDotsCircleHorizontal } from "react-icons/tb";
 
 // Define the shape of the data prop
 interface Customer {
@@ -149,7 +149,7 @@ const CustomerListTable: React.FC<CustomerListTableProps> = ({ data }) => {
                   </td>
                   <td className="py-2 text-center">
                     <button className="bg-[#F3F8EC] py-[2px] px-[12px] rounded-[12px] text-[#283713] text-sm">
-                      {status || 'Active'}
+                      {status || "Active"}
                     </button>
                   </td>
 
@@ -177,16 +177,16 @@ const CustomerListTable: React.FC<CustomerListTableProps> = ({ data }) => {
           {currentItems?.length === 0 && (
             <tr className="text-center text-primary bg-white">
               <td className="py-2 text-center" colSpan={7}>
-                <div className="flex justify-center items-center min-h-[60vh]">
+                <div className="flex justify-center items-center min-h-[40vh]">
                   <div>
                     <div className="flex justify-center items-center">
                       <EmptyProductIcon />
                     </div>
                     <div className="mt-5">
                       <p className="font-medium text-[#475467]">
-                        No transaction found
+                        No Customers found
                       </p>
-                      <p className="font-normal text-sm mt-3">
+                      {/* <p className="font-normal text-sm mt-3">
                         Click “find vendors” button to get started in doing your
                         <br /> first transaction on the platform
                       </p>
@@ -199,7 +199,7 @@ const CustomerListTable: React.FC<CustomerListTableProps> = ({ data }) => {
                             Find Vendors
                           </button>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>

@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { EmptyProductIcon, formatDate } from '@/utils/utils';
-import Image from 'next/image';
-import { useState } from 'react';
-import { IoFilter } from 'react-icons/io5';
-import { TbDotsCircleHorizontal } from 'react-icons/tb';
+import { EmptyProductIcon, formatDate } from "@/utils/utils";
+import Image from "next/image";
+import { useState } from "react";
+import { IoFilter } from "react-icons/io5";
+import { TbDotsCircleHorizontal } from "react-icons/tb";
 interface Interest {
   id: number;
   businessId: string;
@@ -88,7 +88,7 @@ const InitiatedInterestTable: React.FC<InitiatedListTableProps> = ({
                   </td>
 
                   <td className="py-2 text-center">{formatDate(date)}</td>
-                  <td className="py-2 text-center">{desc}</td>
+                  <td className="py-2 text-center">{desc || "nil"}</td>
 
                   <td className="py-2 text-center">
                     <div className="relative inline-block text-left">
@@ -116,29 +116,15 @@ const InitiatedInterestTable: React.FC<InitiatedListTableProps> = ({
           {currentItems?.length == 0 && (
             <tr className="text-center text-primary bg-white">
               <td className="py-2 text-center" colSpan={7}>
-                <div className="flex justify-center items-center  min-h-[60vh]">
+                <div className="flex justify-center items-center  min-h-[40vh]">
                   <div>
                     <div className="flex justify-center items-center">
                       <EmptyProductIcon />
                     </div>
                     <div className="mt-5">
                       <p className="font-medium text-[#475467]">
-                        No transaction found
+                        No Initated Interests found
                       </p>
-                      <p className="font-normal text-sm mt-3">
-                        Click “find vendors” button to get started in doing your
-                        <br /> first transaction on the platform
-                      </p>
-                      <div className="flex justify-center mt-5">
-                        <div className="flex gap-2">
-                          <button className="py-[8px] px-[22px] border border-[#D0D5DD] text-veriGreen">
-                            Learn more
-                          </button>
-                          <button className="py-[8px] px-[22px] bg-veriGreen text-white">
-                            Find Vendors
-                          </button>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>

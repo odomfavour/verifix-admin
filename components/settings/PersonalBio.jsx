@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { toast } from 'react-toastify';
-import axios from 'axios';
-import { PngIcon } from '@/utils/utils';
-import { FaPenAlt } from 'react-icons/fa';
-import Image from 'next/image';
-import { useDispatch } from 'react-redux';
-import { setUser } from '@/provider/redux/userSlice';
+import React, { useState } from "react";
+import { toast } from "react-toastify";
+import axios from "axios";
+import { PngIcon } from "@/utils/utils";
+import { FaPenAlt } from "react-icons/fa";
+import Image from "next/image";
+import { useDispatch } from "react-redux";
+import { setUser } from "@/provider/redux/userSlice";
 
 const PersonalBio = ({ user, countries }) => {
   const dispatch = useDispatch();
@@ -16,12 +16,12 @@ const PersonalBio = ({ user, countries }) => {
     countryCode: user?.countryCode,
     phoneNumber: user?.phoneNumber,
   });
-  const [profileImage, setProfileImage] = useState(user?.image?.assetUrl || '');
+  const [profileImage, setProfileImage] = useState(user?.image?.assetUrl || "");
   const [profileImageFile, setProfileImageFile] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const isFormValid = Object.values(formData).every(
-    (value) => value?.trim() !== ''
+    (value) => value?.trim() !== ""
   );
 
   const handleImageChange = (e) => {
@@ -41,15 +41,15 @@ const PersonalBio = ({ user, countries }) => {
     setLoading(true);
     try {
       const formDataToSend = new FormData();
-      formDataToSend.append('firstName', formData.firstName);
-      formDataToSend.append('lastName', formData.lastName);
-      formDataToSend.append('address', formData.address);
-      formDataToSend.append('countryCode', formData.countryCode);
-      formDataToSend.append('phoneNumber', formData.phoneNumber);
+      formDataToSend.append("firstName", formData.firstName);
+      formDataToSend.append("lastName", formData.lastName);
+      formDataToSend.append("address", formData.address);
+      formDataToSend.append("countryCode", formData.countryCode);
+      formDataToSend.append("phoneNumber", formData.phoneNumber);
       if (profileImageFile) {
         if (profileImageFile) {
           formDataToSend.append(
-            'image',
+            "image",
             profileImageFile,
             profileImageFile.name,
             profileImageFile.type
@@ -58,20 +58,20 @@ const PersonalBio = ({ user, countries }) => {
       }
 
       const response = await axios.put(
-        `${process.env.BASEURL}/user/`,
+        `${process.env.BASEURL}/admin/`,
         formDataToSend,
         {
           headers: {
             Authorization: `Bearer ${user?.token}`,
-            'Content-Type': 'multipart/form-data',
+            "Content-Type": "multipart/form-data",
           },
         }
       );
-      console.log('resp', response);
-      if (response.data.message === 'operation successful') {
+      console.log("resp", response);
+      if (response.data.message === "operation successful") {
         toast.success(`Bio updated successfully`);
       }
-      console.log('Bio updated successfully:', response);
+      console.log("Bio updated successfully:", response);
       setLoading(false);
       // Update local storage
       const updatedUser = {
@@ -80,18 +80,18 @@ const PersonalBio = ({ user, countries }) => {
         image: { assetUrl: profileImage || user?.image?.assetUrl },
         token: user?.token,
       };
-      localStorage.setItem('verifixUser', JSON.stringify(updatedUser));
+      localStorage.setItem("verifixUser", JSON.stringify(updatedUser));
 
       // Update Redux state
       dispatch(setUser(updatedUser));
     } catch (error) {
-      console.error('Error updating bio:', error);
+      console.error("Error updating bio:", error);
 
       const errorMessage =
         error?.response?.data?.message ||
         error?.response?.data?.errors ||
         error?.message ||
-        'Unknown error';
+        "Unknown error";
       toast.error(`${errorMessage}`);
       setLoading(false);
     }
@@ -106,7 +106,7 @@ const PersonalBio = ({ user, countries }) => {
               <Image
                 width={96}
                 height={96}
-                src={profileImage || user?.image?.assetUrl || '/image.png'}
+                src={profileImage || user?.image?.assetUrl || "/image.png"}
                 alt=""
                 className="w-24 h-24 rounded-full object-cover"
               />
@@ -231,19 +231,19 @@ const PersonalBio = ({ user, countries }) => {
           <button
             className={`w-full py-3 flex justify-center gap-3 ${
               isFormValid && !loading
-                ? 'bg-veriGreen text-white'
-                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                ? "bg-veriGreen text-white"
+                : "bg-gray-300 text-gray-500 cursor-not-allowed"
             }`}
             disabled={!isFormValid || loading}
             type="submit"
           >
             {loading ? (
               <>
-                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>{' '}
+                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>{" "}
                 <span>Loading</span>
               </>
             ) : (
-              'Save Changes'
+              "Save Changes"
             )}
           </button>
         </div>

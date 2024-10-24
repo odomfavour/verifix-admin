@@ -1,17 +1,17 @@
-'use client';
-import CustomerOverview from '@/components/dashboard/CustomerOverview';
-import CustomerQueryListTable from '@/components/dashboard/CustomerQueryListTable';
-import InitiatedInterestTable from '@/components/dashboard/InitiatedInterestTable';
-import InterestListTable from '@/components/dashboard/InterestListTable';
-import Modal from '@/components/dashboard/Modal';
-import VendorOverview from '@/components/dashboard/VendorOverview';
-import { toggleLoading } from '@/provider/redux/modalSlice';
-import axios from 'axios';
-import Link from 'next/link';
-import { useParams, useRouter } from 'next/navigation';
-import React, { useCallback, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
+"use client";
+import CustomerOverview from "@/components/dashboard/CustomerOverview";
+import CustomerQueryListTable from "@/components/dashboard/CustomerQueryListTable";
+import InitiatedInterestTable from "@/components/dashboard/InitiatedInterestTable";
+import InterestListTable from "@/components/dashboard/InterestListTable";
+import Modal from "@/components/dashboard/Modal";
+import VendorOverview from "@/components/dashboard/VendorOverview";
+import { toggleLoading } from "@/provider/redux/modalSlice";
+import axios from "axios";
+import Link from "next/link";
+import { useParams, useRouter } from "next/navigation";
+import React, { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 interface Interest {
   id: number;
@@ -59,10 +59,10 @@ const SingleVendor = () => {
   const { id } = useParams();
   const router = useRouter();
 
-  const [activeTab, setActiveTab] = useState('Overview');
+  const [activeTab, setActiveTab] = useState("Overview");
   const dispatch = useDispatch();
 
-  const tabs = ['Overview', 'Interested Customers', 'Queries'];
+  const tabs = ["Overview", "Interested Customers", "Queries"];
 
   const [interests, setInterests] = useState<Interest[]>([
     // {
@@ -95,7 +95,7 @@ const SingleVendor = () => {
     // },
   ]);
 
-  const [reason, setReason] = useState<any>('');
+  const [reason, setReason] = useState<any>("");
 
   const user = useSelector((state: any) => state.user.user);
   const [vendor, setVendor] = useState<any>({});
@@ -119,9 +119,9 @@ const SingleVendor = () => {
         error?.response?.data?.message ||
         error?.response?.data?.errors ||
         error?.message ||
-        'Unknown error';
+        "Unknown error";
       if (error?.response?.status === 401) {
-        router.push('/');
+        router.push("/");
       } else {
         toast.error(errorMessage);
       }
@@ -150,9 +150,9 @@ const SingleVendor = () => {
         error?.response?.data?.message ||
         error?.response?.data?.errors ||
         error?.message ||
-        'Unknown error';
+        "Unknown error";
       if (error?.response?.status === 401) {
-        router.push('/');
+        router.push("/");
       } else {
         toast.error(errorMessage);
       }
@@ -181,9 +181,9 @@ const SingleVendor = () => {
         error?.response?.data?.message ||
         error?.response?.data?.errors ||
         error?.message ||
-        'Unknown error';
+        "Unknown error";
       if (error?.response?.status === 401) {
-        router.push('/');
+        router.push("/");
       } else {
         toast.error(errorMessage);
       }
@@ -216,18 +216,18 @@ const SingleVendor = () => {
           },
         }
       );
-      console.log('res', response);
-      toast.success('Vendor verified successfully');
+      console.log("res", response);
+      toast.success("Vendor verified successfully");
       setVendor((prevVendor: Vendor) => ({
         ...prevVendor,
-        status: 'Verified',
+        status: "Verified",
       }));
     } catch (error: any) {
       const errorMessage =
         error?.response?.data?.message ||
         error?.response?.data?.errors ||
         error?.message ||
-        'Unknown error';
+        "Unknown error";
       toast.error(`${errorMessage}`);
     } finally {
       dispatch(toggleLoading(false));
@@ -246,7 +246,7 @@ const SingleVendor = () => {
           },
         }
       );
-      toast.success('Vendor suspended successfully');
+      toast.success("Vendor suspended successfully");
       // setVendor((prevVendor: Vendor) => ({
       //   ...prevVendor,
       //   status: 'Suspended',
@@ -258,14 +258,14 @@ const SingleVendor = () => {
         error?.response?.data?.message ||
         error?.response?.data?.errors ||
         error?.message ||
-        'Unknown error';
+        "Unknown error";
       toast.error(`${errorMessage}`);
     } finally {
       dispatch(toggleLoading(false));
     }
   };
   const unSuspendVendor = async () => {
-    console.log('first');
+    console.log("first");
     try {
       dispatch(toggleLoading(true));
       const response = await axios.post(
@@ -277,7 +277,7 @@ const SingleVendor = () => {
           },
         }
       );
-      toast.success('Vendor unsuspended successfully');
+      toast.success("Vendor unsuspended successfully");
       fetchVendor();
       handleClose();
       // setVendor((prevVendor: Vendor) => ({
@@ -289,7 +289,7 @@ const SingleVendor = () => {
         error?.response?.data?.message ||
         error?.response?.data?.errors ||
         error?.message ||
-        'Unknown error';
+        "Unknown error";
       toast.error(`${errorMessage}`);
     } finally {
       dispatch(toggleLoading(false));
@@ -314,7 +314,7 @@ const SingleVendor = () => {
                   key={tab}
                   onClick={() => setActiveTab(tab)}
                   className={`px-4 py-2 ${
-                    activeTab === tab ? 'border-b-2 border-veriGreen' : ''
+                    activeTab === tab ? "border-b-2 border-veriGreen" : ""
                   }`}
                 >
                   {tab}
@@ -326,22 +326,27 @@ const SingleVendor = () => {
                 className="border-veriGreen text-veriGreen border py-[8px] px-4"
                 onClick={() => setOpenModal(true)}
               >
-                {vendor?.status === 'SUSPENDED' ? 'Unsuspend' : 'Suspend'}
+                {vendor?.status === "SUSPENDED" ? "Unsuspend" : "Suspend"}
               </button>
               <button
                 onClick={verifyVendor}
-                className="bg-veriGreen text-white py-[8px] px-4"
+                className={`py-[8px] px-4 text-white ${
+                  vendor.status === "UNVERIFIED"
+                    ? "bg-veriGreen"
+                    : "bg-gray-400 cursor-not-allowed"
+                }`}
+                disabled={vendor.status !== "UNVERIFIED"}
               >
                 Verify Vendor
               </button>
             </div>
           </div>
           <div className="mt-5">
-            {activeTab == 'Overview' && <VendorOverview vendor={vendor} />}
-            {activeTab == 'Interested Customers' && (
+            {activeTab == "Overview" && <VendorOverview vendor={vendor} />}
+            {activeTab == "Interested Customers" && (
               <InterestListTable data={interests} />
             )}
-            {activeTab == 'Queries' && (
+            {activeTab == "Queries" && (
               <CustomerQueryListTable data={queries} fetchData={fetchQueries} />
             )}
           </div>
@@ -353,7 +358,7 @@ const SingleVendor = () => {
           >
             <div className="p-3">
               <p className="text-center font-semibold text-lg">
-                {vendor?.status === 'SUSPENDED' ? 'Unsuspend' : 'Suspend'}{' '}
+                {vendor?.status === "SUSPENDED" ? "Unsuspend" : "Suspend"}{" "}
                 {vendor.businessName}
               </p>
               <p className="text-base text-center mb-5">Are you sure?</p>
@@ -376,19 +381,19 @@ const SingleVendor = () => {
                   </button>
                   <button
                     className={`${
-                      vendor?.status === 'SUSPENDED'
-                        ? 'bg-veriGreen text-white'
-                        : 'bg-red-600 text-white '
+                      vendor?.status === "SUSPENDED"
+                        ? "bg-veriGreen text-white"
+                        : "bg-red-600 text-white "
                     } px-4 py-2 rounded-md`}
                     onClick={() => {
-                      if (vendor?.status === 'SUSPENDED') {
+                      if (vendor?.status === "SUSPENDED") {
                         unSuspendVendor();
                       } else {
                         suspendVendor();
                       }
                     }}
                   >
-                    {vendor?.status === 'SUSPENDED' ? 'Unsuspend' : 'Suspend'}
+                    {vendor?.status === "SUSPENDED" ? "Unsuspend" : "Suspend"}
                   </button>
                 </div>
               </div>

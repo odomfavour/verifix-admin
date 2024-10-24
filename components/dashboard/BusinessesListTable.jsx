@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { EmptyProductIcon } from '@/utils/utils';
-import Image from 'next/image';
-import { useState } from 'react';
-import { TbDotsCircleHorizontal } from 'react-icons/tb';
+import { EmptyProductIcon } from "@/utils/utils";
+import Image from "next/image";
+import { useState } from "react";
+import { TbDotsCircleHorizontal } from "react-icons/tb";
 
 const BusinessesListTable = ({ data }) => {
   const [openDropdownIndex, setOpenDropdownIndex] = useState(null);
@@ -153,7 +153,7 @@ const BusinessesListTable = ({ data }) => {
                     </div>
                     <div className="mt-5">
                       <p className="font-medium text-[#475467]">
-                        No transaction found
+                        No Businesses found
                       </p>
                       <p className="font-normal text-sm mt-3">
                         Click “find vendors” button to get started in doing your

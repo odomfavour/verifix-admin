@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import { EmptyProductIcon, formatDate } from '@/utils/utils';
-import Image from 'next/image';
-import { useState } from 'react';
-import { IoFilter } from 'react-icons/io5';
-import { TbDotsCircleHorizontal } from 'react-icons/tb';
-import Modal from './Modal';
-import axios from 'axios';
-import { toast } from 'react-toastify';
-import { useDispatch, useSelector } from 'react-redux';
-import { toggleLoading } from '@/provider/redux/modalSlice';
-import AdminCloseQueryForm from './AdminCloseQueryForm';
+import { EmptyProductIcon, formatDate } from "@/utils/utils";
+import Image from "next/image";
+import { useState } from "react";
+import { IoFilter } from "react-icons/io5";
+import { TbDotsCircleHorizontal } from "react-icons/tb";
+import Modal from "./Modal";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleLoading } from "@/provider/redux/modalSlice";
+import AdminCloseQueryForm from "./AdminCloseQueryForm";
 interface Query {
   id: number;
   query_id: number;
@@ -85,7 +85,7 @@ const CustomerQueryListTable: React.FC<InitiatedListTableProps> = ({
   const handleClose = () => {
     setOpenModal(false);
   };
-  const [reason, setReason] = useState<any>('');
+  const [reason, setReason] = useState<any>("");
   const [queryToClose, setQueryToClose] = useState(0);
 
   const openResolveModal = (id: number) => {
@@ -151,11 +151,11 @@ const CustomerQueryListTable: React.FC<InitiatedListTableProps> = ({
                     <button
                       className={`rounded-md px-4 py-2 ${
                         reason
-                          ? 'bg-veriGreen text-white'
-                          : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                          ? "bg-veriGreen text-white"
+                          : "bg-gray-300 text-gray-500 cursor-not-allowed"
                       }`}
                       onClick={() => openResolveModal(query_id)}
-                      disabled={query_status === 'RESOLVED'}
+                      disabled={query_status === "RESOLVED"}
                     >
                       Resolve
                     </button>
@@ -190,29 +190,15 @@ const CustomerQueryListTable: React.FC<InitiatedListTableProps> = ({
           {currentItems?.length == 0 && (
             <tr className="text-center text-primary bg-white">
               <td className="py-2 text-center" colSpan={7}>
-                <div className="flex justify-center items-center  min-h-[60vh]">
+                <div className="flex justify-center items-center  min-h-[40vh]">
                   <div>
                     <div className="flex justify-center items-center">
                       <EmptyProductIcon />
                     </div>
                     <div className="mt-5">
                       <p className="font-medium text-[#475467]">
-                        No transaction found
+                        No Queries found
                       </p>
-                      <p className="font-normal text-sm mt-3">
-                        Click “find vendors” button to get started in doing your
-                        <br /> first transaction on the platform
-                      </p>
-                      <div className="flex justify-center mt-5">
-                        <div className="flex gap-2">
-                          <button className="py-[8px] px-[22px] border border-[#D0D5DD] text-veriGreen">
-                            Learn more
-                          </button>
-                          <button className="py-[8px] px-[22px] bg-veriGreen text-white">
-                            Find Vendors
-                          </button>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>

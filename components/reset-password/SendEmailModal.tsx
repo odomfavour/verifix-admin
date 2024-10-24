@@ -1,40 +1,56 @@
-'use client';
-import { BsXLg } from 'react-icons/bs';
-import { useDispatch } from 'react-redux';
-import { useState } from 'react';
-import { toggleOtpModal } from '@/provider/redux/modalSlice';
-import OtpInput from './OtpInput';
-import Modal from '../dashboard/Modal';
-import axios from 'axios';
-import { toast } from 'react-toastify';
+"use client";
+import { BsXLg } from "react-icons/bs";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { toggleLoading, toggleOtpModal } from "@/provider/redux/modalSlice";
+import OtpInput from "./OtpInput";
+import Modal from "../dashboard/Modal";
+import axios from "axios";
+import { toast } from "react-toastify";
 
-const SendEmailModal = () => {
+interface SendEmailModalProps {
+  handleClose: () => void; // Prop to close the modal
+  setOpenCheckEmail: (open: boolean) => void;
+}
+
+const SendEmailModal = ({
+  handleClose,
+  setOpenCheckEmail,
+}: SendEmailModalProps) => {
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(false);
-  const [email, setEmail] = useState<string>('');
-  const handleClose = () => {
-    setOpenModal(false);
-  };
+  const [email, setEmail] = useState<string>("");
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    console.log('hhfd');
+    console.log("hhfd");
     // setErrors({}); // Clear previous errors
 
     try {
+      dispatch(toggleLoading(true));
       const response = await axios.post(
         `${process.env.BASEURL}/admin/auth/forgot-password`,
         { email }
       );
+
+      handleClose();
+      setOpenCheckEmail(true);
       // Assuming the response contains a success flag or similar
-      if (response.data.success) {
-        toast.success(response.data.message);
-        setOpenModal(true);
-      } else {
-        // Handle any other response cases here
-      }
-    } catch (error) {
-      console.error('err', error);
+      // if (response.data.success) {
+      //   toast.success(response.data.message);
+      //   setOpenModal(true);
+      // } else {
+      //   // Handle any other response cases here
+      // }
+    } catch (error: any) {
+      const errorMessage =
+        error?.response?.data?.message ||
+        error?.response?.data?.errors ||
+        error?.message ||
+        "Unknown error";
+      toast.error(`${errorMessage}`);
+    } finally {
+      dispatch(toggleLoading(false));
     }
   };
   return (
@@ -62,7 +78,8 @@ const SendEmailModal = () => {
           <div className="flex gap-3 mt-5">
             <button
               className="py-[8px] px-[22px] border border-[#D0D5DD] text-veriGreen w-full"
-              // onClick={() => dispatch(toggleCACModal())}
+              onClick={handleClose}
+              type="button"
             >
               Go back
             </button>
@@ -75,9 +92,9 @@ const SendEmailModal = () => {
           </div>
         </form>
       </div>
-      <Modal title="" isOpen={openModal} onClose={handleClose} maxWidth="40%">
+      {/* <Modal title="" isOpen={openModal} onClose={handleClose} maxWidth="40%">
         <OtpInput />
-      </Modal>
+      </Modal> */}
     </>
   );
 };

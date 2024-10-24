@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { EmptyProductIcon, formatDate } from '@/utils/utils';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useState } from 'react';
-import { IoFilter } from 'react-icons/io5';
-import { TbDotsCircleHorizontal } from 'react-icons/tb';
+import { EmptyProductIcon, formatDate } from "@/utils/utils";
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
+import { IoFilter } from "react-icons/io5";
+import { TbDotsCircleHorizontal } from "react-icons/tb";
 interface Vendor {
   id: number;
   businessName: string;
@@ -128,12 +128,12 @@ const VendorListTable: React.FC<VendorListTableProps> = ({ data }) => {
                   <td className="py-2 text-center">
                     <button
                       className={` ${
-                        status == 'SUSPENDED'
-                          ? 'bg-[#F9DEDC] text-[#B3261E]'
-                          : 'bg-[#F3F8EC] text-[#283713]'
+                        status == "SUSPENDED"
+                          ? "bg-[#F9DEDC] text-[#B3261E]"
+                          : "bg-[#F3F8EC] text-[#283713]"
                       } py-[2px] px-[12px] rounded-[12px]  text-sm`}
                     >
-                      {status || 'Active'}
+                      {status || "Active"}
                     </button>
                   </td>
 
@@ -170,22 +170,8 @@ const VendorListTable: React.FC<VendorListTableProps> = ({ data }) => {
                     </div>
                     <div className="mt-5">
                       <p className="font-medium text-[#475467]">
-                        No transaction found
+                        No vendors found
                       </p>
-                      <p className="font-normal text-sm mt-3">
-                        Click “find vendors” button to get started in doing your
-                        <br /> first transaction on the platform
-                      </p>
-                      <div className="flex justify-center mt-5">
-                        <div className="flex gap-2">
-                          <button className="py-[8px] px-[22px] border border-[#D0D5DD] text-veriGreen">
-                            Learn more
-                          </button>
-                          <button className="py-[8px] px-[22px] bg-veriGreen text-white">
-                            Find Vendors
-                          </button>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>

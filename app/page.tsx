@@ -1,11 +1,12 @@
-'use client';
-import LoginForm from '@/components/LoginForm';
-import Modal from '@/components/dashboard/Modal';
-import OtpInput from '@/components/reset-password/OtpInput';
-import SendEmailModal from '@/components/reset-password/SendEmailModal';
-import Image from 'next/image';
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+"use client";
+import Loader from "@/components/Loader";
+import LoginForm from "@/components/LoginForm";
+import Modal from "@/components/dashboard/Modal";
+import OtpInput from "@/components/reset-password/OtpInput";
+import SendEmailModal from "@/components/reset-password/SendEmailModal";
+import Image from "next/image";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function Home() {
   const isSendEmailModalOpen = useSelector(
@@ -14,6 +15,7 @@ export default function Home() {
   const isOtpModalOpen = useSelector(
     (state: any) => state.modal.isOtpModalOpen
   );
+  const isLoading = useSelector((state: any) => state.modal.isLoading);
 
   return (
     <>
@@ -30,7 +32,7 @@ export default function Home() {
           <LoginForm />
         </div>
       </main>
-
+      {isLoading && <Loader />}
       {/* {isSendEmailModalOpen && <SendEmailModal />} */}
       {isOtpModalOpen && <OtpInput />}
     </>

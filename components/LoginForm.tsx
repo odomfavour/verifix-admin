@@ -1,20 +1,20 @@
-'use client';
-import { toggleSendEmailModal } from '@/provider/redux/modalSlice';
-import Link from 'next/link';
-import React, { FormEvent, useState } from 'react';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { useDispatch } from 'react-redux';
-import { useRouter } from 'next/navigation';
-import { toast } from 'react-toastify';
-import { setUser } from '@/provider/redux/userSlice';
-import axios from 'axios';
-import Modal from './dashboard/Modal';
-import SendEmailModal from './reset-password/SendEmailModal';
+"use client";
+import { toggleSendEmailModal } from "@/provider/redux/modalSlice";
+import Link from "next/link";
+import React, { FormEvent, useState } from "react";
+import { FaCheckCircle, FaEye, FaEyeSlash } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import { setUser } from "@/provider/redux/userSlice";
+import axios from "axios";
+import Modal from "./dashboard/Modal";
+import SendEmailModal from "./reset-password/SendEmailModal";
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
   const router = useRouter();
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ const LoginForm = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Form Data:', formData);
+    console.log("Form Data:", formData);
     setLoading(true);
     // Add your form submission logic here
     try {
@@ -31,11 +31,11 @@ const LoginForm = () => {
         `${process.env.BASEURL}/admin/auth/login`,
         formData
       );
-      console.log('resp', response);
+      console.log("resp", response);
       dispatch(setUser(response?.data.user));
-      if (typeof window !== 'undefined') {
+      if (typeof window !== "undefined") {
         localStorage.setItem(
-          'verifixAdminUser',
+          "verifixAdminUser",
           JSON.stringify(response?.data.user)
         );
       }
@@ -45,15 +45,15 @@ const LoginForm = () => {
         toast.success(`Login successful`);
       }
       setLoading(false);
-      router.push('/dashboard');
+      router.push("/dashboard");
     } catch (error: any) {
-      console.log('err', error);
-      console.error('Error deleting image:', error);
+      console.log("err", error);
+      console.error("Error deleting image:", error);
       const errorMessage =
         error?.response?.data?.message ||
         error?.response?.data?.errors ||
         error?.message ||
-        'Unknown error';
+        "Unknown error";
       toast.error(`${errorMessage}`);
       setLoading(false);
     }
@@ -62,6 +62,10 @@ const LoginForm = () => {
   const [openModal, setOpenModal] = useState(false);
   const handleClose = () => {
     setOpenModal(false);
+  };
+  const [openCheckEmail, setOpenCheckEmail] = useState(false);
+  const handleCheckEmailClose = () => {
+    setOpenCheckEmail(false);
   };
 
   return (
@@ -101,7 +105,7 @@ const LoginForm = () => {
             </label>
             <div className="relative">
               <input
-                type={showPassword ? 'text' : 'password'}
+                type={showPassword ? "text" : "password"}
                 id="password"
                 name="password"
                 value={formData.password}
@@ -133,26 +137,46 @@ const LoginForm = () => {
             <button
               className={`w-full py-3 flex justify-center gap-3 ${
                 !formData.email || !formData.password
-                  ? 'bg-gray-300 text-veriDark cursor-not-allowed'
-                  : 'bg-veriGreen text-white'
+                  ? "bg-gray-300 text-veriDark cursor-not-allowed"
+                  : "bg-veriGreen text-white"
               }`}
               type="submit"
               disabled={!formData.email || !formData.password}
             >
               {loading ? (
                 <>
-                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>{' '}
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>{" "}
                   <span className="">Loading</span>
                 </>
               ) : (
-                'Login'
+                "Login"
               )}
             </button>
           </div>
         </form>
       </div>
       <Modal title="" isOpen={openModal} onClose={handleClose} maxWidth="40%">
-        <SendEmailModal />
+        <SendEmailModal
+          handleClose={handleClose}
+          setOpenCheckEmail={setOpenCheckEmail}
+        />
+      </Modal>
+
+      <Modal
+        title=""
+        isOpen={openCheckEmail}
+        onClose={handleCheckEmailClose}
+        maxWidth="30%"
+      >
+        <div className="text-center">
+          <div className="flex justify-center mb-5">
+            <FaCheckCircle className="text-veriGreen text-3xl" />
+          </div>
+          <h3 className="text-center font-semibold mb-4">Email Sent</h3>
+          <p className="text-base font-normal">
+            Please check your email, a new password has been sent to you
+          </p>
+        </div>
       </Modal>
     </>
   );

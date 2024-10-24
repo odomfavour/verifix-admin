@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   value: 0,
@@ -9,13 +9,13 @@ const initialState = {
   changeBusinessNameFormOpen: false,
   successModalOpen: false,
   successContent: {
-    title: '',
-    subtitle: '',
-    link: '',
-    linkText: '',
+    title: "",
+    subtitle: "",
+    link: "",
+    linkText: "",
     singleBtn: false,
   },
-  confirmContent: { title: '', subtitle: '', btnText: '' },
+  confirmContent: { title: "", subtitle: "", btnText: "" },
   confirmModalOpen: false,
   queryModalOpen: false,
   proceed: false,
@@ -28,7 +28,7 @@ const initialState = {
 };
 
 export const modalSlice = createSlice({
-  name: 'modal',
+  name: "modal",
   initialState,
   reducers: {
     toggleSendEmailModal: (state) => {
@@ -48,16 +48,15 @@ export const modalSlice = createSlice({
         state.successContent = action.payload; // Set success content when success modal is opened
       } else {
         state.successContent = {
-          title: '',
-          subtitle: '',
-          link: '',
-          linkText: '',
+          title: "",
+          subtitle: "",
+          link: "",
+          linkText: "",
         };
       }
     },
     toggleLoading: (state, action) => {
       state.isLoading = action.payload; // Toggle modal state
-      console.log('loadi', state.isLoading);
     },
   },
 });

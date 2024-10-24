@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { EmptyProductIcon, formatDate } from '@/utils/utils';
-import Image from 'next/image';
-import { useState } from 'react';
-import { IoFilter } from 'react-icons/io5';
-import { TbDotsCircleHorizontal } from 'react-icons/tb';
+import { EmptyProductIcon, formatDate } from "@/utils/utils";
+import Image from "next/image";
+import { useState } from "react";
+import { IoFilter } from "react-icons/io5";
+import { TbDotsCircleHorizontal } from "react-icons/tb";
 interface Interest {
   id: number;
   userFirstName: string;
@@ -81,14 +81,14 @@ const InterestListTable: React.FC<InitiatedListTableProps> = ({ data }) => {
               return (
                 <tr className="border-b" key={index}>
                   <td className="py-2 text-center text-[#344054]">
-                    {id || '1'}
+                    {id || "1"}
                   </td>
                   <td className="py-2 text-center text-[#344054]">
                     {userFirstName} {userLastName}
                   </td>
 
                   <td className="py-2 text-center">{formatDate(date)}</td>
-                  <td className="py-2 text-center">{desc || 'nil'}</td>
+                  <td className="py-2 text-center">{desc || "nil"}</td>
 
                   <td className="py-2 text-center">
                     <div className="relative inline-block text-left">
@@ -123,9 +123,9 @@ const InterestListTable: React.FC<InitiatedListTableProps> = ({ data }) => {
                     </div>
                     <div className="mt-5">
                       <p className="font-medium text-[#475467]">
-                        No transaction found
+                        No initiated interests found
                       </p>
-                      <p className="font-normal text-sm mt-3">
+                      {/* <p className="font-normal text-sm mt-3">
                         Click “find vendors” button to get started in doing your
                         <br /> first transaction on the platform
                       </p>
@@ -138,7 +138,7 @@ const InterestListTable: React.FC<InitiatedListTableProps> = ({ data }) => {
                             Find Vendors
                           </button>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>
